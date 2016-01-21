@@ -14,7 +14,7 @@ xtsplit{1}=Xt2(:,(1:floor(nlen/3)));
 xtsplit{2}=Xt2(:,ceil(nlen/3):floor(2*nlen/3));
 xtsplit{3}=Xt2(:,ceil(2*nlen/3):end);
 
-Lt2=Lt{2}';
+Lt2=Lt{2};
 Llen = size(Lt2,2);
 Ltsplit{1}=Lt2(:,(1:floor(Llen/3)));
 Ltsplit{2}=Lt2(:,ceil(Llen/3):floor(2*Llen/3));
@@ -22,7 +22,7 @@ Ltsplit{3}=Lt2(:,ceil(2*Llen/3):end);
 
 for k=1:20
     LkNN = kNN(xtsplit{1}, k, [xtsplit{2} xtsplit{3}], [Ltsplit{2} Ltsplit{3}]);
-    cM = calcConfusionMatrix( LkNN, Ltsplit{1});
+    cM = calcConfusionMatrix( LkNN, Lt{2});
     acc(k) = calcAccuracy(cM);
 end
 
