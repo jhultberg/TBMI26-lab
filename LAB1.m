@@ -1,6 +1,6 @@
 run setupSupervisedLab.m
 
-dataSetNr = 1; % Change this to load new data 
+dataSetNr = 2; % Change this to load new data 
 [X, D, L] = loadDataSet( dataSetNr );
 
 numBins = 2; % Number of Bins you want to devide your data into
@@ -21,8 +21,8 @@ Ltsplit{2}=Lt2(:,ceil(Llen/3):floor(2*Llen/3));
 Ltsplit{3}=Lt2(:,ceil(2*Llen/3):end);
 
 for k=1:20
-    LkNN = kNN(xtsplit{1}, k, [xtsplit{2} xtsplit{3}], [Ltsplit{2} Ltsplit{3}]);
-    cM = calcConfusionMatrix( LkNN, Ltsplit{1});
+    LkNN = kNN(xtsplit{3}, k, [xtsplit{2} xtsplit{1}], [Ltsplit{2} Ltsplit{1}]);
+    cM = calcConfusionMatrix( LkNN, Ltsplit{3});
     acc(k) = calcAccuracy(cM);
 end
 

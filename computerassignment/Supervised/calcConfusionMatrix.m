@@ -3,9 +3,7 @@ classes = unique(Ltrue);
 numClasses = length(classes);
 cM = zeros(numClasses);
 
-
 cM=confusionmat(Ltrue,Lclass);
-
 
 % for i = 1:length(Lclass)
 %     for j = 1:length(Ltrue)
