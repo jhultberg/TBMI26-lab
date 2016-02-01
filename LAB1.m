@@ -21,8 +21,8 @@ Ltsplit{2}=Lt2(:,ceil(Llen/3):floor(2*Llen/3));
 Ltsplit{3}=Lt2(:,ceil(2*Llen/3):end);
 
 for k=1:20
-    LkNN = kNN(xtsplit{3}, k, [xtsplit{2} xtsplit{1}], [Ltsplit{2} Ltsplit{1}]);
-    cM = calcConfusionMatrix( LkNN, Ltsplit{3});
+    LkNN = kNN(xtsplit{2}, k, [xtsplit{3} xtsplit{1}], [Ltsplit{3} Ltsplit{1}]);
+    cM = calcConfusionMatrix( LkNN, Ltsplit{2});
     acc(k) = calcAccuracy(cM);
 end
 

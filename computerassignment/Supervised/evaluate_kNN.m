@@ -7,12 +7,13 @@
 % 3 = dot cloud 3
 % 4 = OCR data
 
-dataSetNr = 3; % Change this to load new data 
+dataSetNr = 1; % Change this to load new data 
 
 [X, D, L] = loadDataSet( dataSetNr );
 
 % You can plot and study dataset 1 to 3 by running:
 plotCase(X,D)
+title('Dataset 1','Fontsize',18)
 
 %% Select a subset of the training features
 

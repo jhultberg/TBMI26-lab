@@ -17,24 +17,27 @@ N=size(X,2);
 Nt=size(Xt,2);
 for j= 1:N
     for i=1:Nt
-       u(i)=norm(X(j)-Xt(i));
+       u(i)=norm(X(:,j)-Xt(:,i));
+       
     end
      %find k smalest vakues of u
       [Val, Ind]=sort(u);
        kInd=Ind(1:k);
-    
    for l=1:length(kInd)
        f=kInd(l);
        label(l)=Lt(f);
    end
-    % if k = 2
+    % if k even
    if (mod(k,2) == 0)
+       [lab , F]= mode(label);
+       if F > length(label)/2
+           labelsOut(j)=lab;
+       else   
        labelsOut(j)=label(1);
+       end
    else
        labelsOut(j)= mode(label);
    end
 end
-
-
 end
 

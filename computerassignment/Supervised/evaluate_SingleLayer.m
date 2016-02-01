@@ -9,7 +9,7 @@
 % 3 = dot cloud 3
 % 4 = OCR data
 
-dataSetNr = 2; % Change this to load new data 
+dataSetNr = 3; % Change this to load new data 
 
 [X, D, L] = loadDataSet( dataSetNr );
 
@@ -39,7 +39,8 @@ Xtest  = [ones(1,size(Xt{2},2));Xt{2}]; % Remove this line
 
 numIterations = 40000; % Change this, Numner of iterations (Epochs)
 learningRate = 0.00005; % Change this, Your learningrate
-W0 = 0; % Change this, Initiate your weight matrix W
+classes=length(unique(Lt{1}));
+W0 = randn(classes,size(Xtest,1)); % Change this, Initiate your weight matrix W
 
 [W, trainingError, testError ] = trainSingleLayer(Xtraining,Dt{1},Xtest,Dt{2}, W0,numIterations, learningRate );
 
