@@ -1,0 +1,16 @@
+function [ H] = strong_classifier( alpha,ht,X )
+%UNTITLED3 Summary of this function goes here
+%   Detailed explanation goes here
+
+%i: which classifier
+%j: which image
+%for j=1:size(ht,2)
+    for j=1:size(X,2)
+    %h(i,j) = ht(2,i)*(X(i,j) - ht(1,i));
+    h(j) = ht(2,:).*(ht(:,:)'*[ones(1,size(X,2)); zeros(1,size(X,2));X];
+    %end
+end
+
+H = sign(h'*alpha);
+end
+
