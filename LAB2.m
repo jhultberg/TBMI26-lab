@@ -29,7 +29,7 @@ haarFeatureMasks = GenerateHaarFeatureMasks(nbrHaarFeatures);
 
 figure(3)
 colormap gray
-for k = 1:3 %this loop!
+for k = 1:min(25,nbrHaarFeatures)%3 ,this loop!
     subplot(5,5,k),imagesc(haarFeatureMasks(:,:,k),[-1 2])
     axis image,axis off
 end
@@ -47,40 +47,43 @@ for i=1:size(xTrain)
     [x_sort(i,:), ind(i,:)] = sort(xTrain(i,:),2);
 end
 
-%%
 d = 1/(2*nbrTrainExamples)*ones(1,2*nbrTrainExamples);
-T = 9;
-polarity = 1;
+T = 9; % # number of base classifiers
+ht = zeros(3,T); % h(x,tau,polarity
+ht(3,:) = 1; % initializing the polarity to 1.
+alpha = zeros(T,1);
 
-for f=1:nbrHaarFeatures %all features/rows
-    for t=1:T %all Tau
-        for c=1:2*nbrTrainExamples %all weak classifiers/col
-            if (polarity*xTrain(f,c)>= polarity*t)
-                h(c) = 1;
-            else
-                h(c) = -1;
-            end
+% loop for all classifiers
+for class = 1:T
+    e_min = inf;
+    
+    % loop for all features comp
+    for feat = 1:size(xTrain,1)
+        p_tmp = 1;
+        % loop for all thresholds
+        for tres = 1:nbrTrainExamples
+            e_tmp = sum(d.*(yTrain ~= sign(p_tmp*(xTrain(feat,:) - xTrain(feat,tres))))); % find the error of the
+                                                                                    % treshold - the current sample
         end
-        test_vec(:,t) = yTrain.*h;               % test_vec is the vector that knows if the image has been correctly classified
-        
-        bin_vec = test_vec(:,t);
-        bin_vec(bin_vec==1) = 0;          % find all values that are correct labled and set them to zeros
-        dummy=d'.*bin_vec;
-        error = -sum(dummy);                % adding upp all the erros
-        
-        if (error >0.5)                     % check if error is bigger than 0.5 if yes then change polarity
-            polarity = -1;
-            error = 1-error;
+        if e_tmp >0.5
+            p_tmp = -1;
+            e_tmp = 1- e_tmp;
         end
-        alfa = 1/2*log((1-error)/error);
-        if (bin_vec(t) >0)                     % if bin_vec(i) > 0 then it's wrongly classfied
-            d(:,t) = d(:,t)*exp(alfa);          % what index??
-        else
-            d(:,t) = d(:,t)*exp(-alfa);
+        if e_tmp < e_min
+           e_min = e_tmp;
+           ht(1,class) = feat; % classifier
+           ht(2,class) = xTrain(feat,tres); % threshold
+           ht(3,class) = p_tmp; % polarity
         end
         
     end
-    d=d/sum(d);
+    % finding alpha
+    alpha(class) = 1/2*log((1-e_min)/e_min);
+    % update the weights
+    d = d.*exp(-alpha(class)*yTrain.*sign(ht(3,class)*(xTrain(ht(1,class),:)-ht(2,class))));
+    d = d./sum(d);
+   
 end
 
+test = strong_classifier(alpha,ht,xTrain);
 
