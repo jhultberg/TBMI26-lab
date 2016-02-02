@@ -16,15 +16,28 @@ colormap gray
 for k=1:25
     subplot(5,5,k), imagesc(faces(:,:,10*k)), axis image, axis off
 end
+% faces which failed to be classified correctly
+figure(3)
+colormap gray
+imagesc(faces(:,:,49)), axis image, axis off
+
+
+% non-faces which failed to be classified correctly
+figure(4)
+colormap gray
+subplot(2,2,1), imagesc(nonfaces(:,:,72)), axis image, axis off
+subplot(2,2,2), imagesc(nonfaces(:,:,82)), axis image, axis off
+subplot(2,2,3), imagesc(nonfaces(:,:,106)), axis image, axis off
+subplot(2,2,4), imagesc(nonfaces(:,:,139)), axis image, axis off
 
 figure(2)
 colormap gray
 for k=1:25
-    subplot(5,5,k), imagesc(nonfaces(:,:,10*k)), axis image, axis off
+    subplot(5,5,k), imagesc(nonfaces(:,:,10*k)), axis image, axis off 
 end
 % Generate Haar feature masks
 
-nbrHaarFeatures = 70; % must be over 25 or change k in the next for-loop
+nbrHaarFeatures = 90; % must be over 25 or change k in the next for-loop
 haarFeatureMasks = GenerateHaarFeatureMasks(nbrHaarFeatures);
 
 figure(3)
@@ -36,14 +49,14 @@ end
 % Create a training data set with a number of training data examples
 % from each class. Non-faces = class label y=-1, faces = class label y=1
 
-nbrTrainExamples = 100;
+nbrTrainExamples = 70;
 trainImages = cat(3,faces(:,:,1:nbrTrainExamples),nonfaces(:,:,1:nbrTrainExamples));
 xTrain = ExtractHaarFeatures(trainImages,haarFeatureMasks);
 yTrain = [ones(1,nbrTrainExamples), -ones(1,nbrTrainExamples)];
 
 
 d = 1/(2*nbrTrainExamples)*ones(1,2*nbrTrainExamples);
-T = 21; % # number of base classifiers
+T = 30; % # number of base classifiers
 ht = [ones(2,T);zeros(size(xTrain,1),T)];
 alpha = zeros(T,1);
 
