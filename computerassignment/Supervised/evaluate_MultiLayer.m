@@ -25,11 +25,11 @@ selectAtRandom = true; % true = select features at random, false = select the fi
 
 % The Training Data
 Xtraining = [];
-Xtraining  = [ones(1,size(Xt{1},2));Xt{1}]; % Remove this line
+Xtraining  = [ones(1,size(Xt{1},2));Xt{1}];
 
 % The Test Data
 Xtest = [];
-Xtest  = [ones(1,size(Xt{2},2));Xt{2}]; % Remove this line
+Xtest  = [ones(1,size(Xt{2},2));Xt{2}];
 
 
 %% Train your single layer network
@@ -59,7 +59,6 @@ title('Training and Test Errors, Multi-Layer')
 legend('Training Error','Test Error','Min Test Error')
 
 %% Calculate The Confusion Matrix and the Accuracy of the Evaluation Data
-% Note: you have to modify the calcConfusionMatrix() function yourselfs.
 
 [ Y, LMultiLayerTraining ] = runMultiLayer(Xtraining, W, V);
 tic
@@ -76,7 +75,6 @@ display(['Time spent calssifying 1 feature vector: ' num2str(classificationTime)
 display(['Accuracy: ' num2str(acc)])
 
 %% Plot classifications
-% Note: You do not need to change this code.
 
 if dataSetNr < 4
     plotResultMultiLayer(W,V,Xtraining,Lt{1},LMultiLayerTraining,Xtest,Lt{2},LMultiLayerTest)

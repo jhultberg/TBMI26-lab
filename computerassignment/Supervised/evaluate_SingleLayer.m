@@ -2,8 +2,6 @@
 
 %% Select which data to use:
 
-%% Select which data to use:
-
 % 1 = dot cloud 1
 % 2 = dot cloud 2
 % 3 = dot cloud 3
@@ -27,15 +25,14 @@ selectAtRandom = true; % true = select features at random, false = select the fi
 
 % The Training Data
 Xtraining = [];
-Xtraining  = [ones(1,size(Xt{1},2));Xt{1}]; % Remove this line
+Xtraining  = [ones(1,size(Xt{1},2));Xt{1}]; 
 
 % The Test Data
 Xtest = [];
-Xtest  = [ones(1,size(Xt{2},2));Xt{2}]; % Remove this line
+Xtest  = [ones(1,size(Xt{2},2));Xt{2}];
 
 
 %% Train your single layer network
-% Note: You nned to modify trainSingleLayer() in order to train the network
 
 numIterations = 40000; % Change this, Numner of iterations (Epochs)
 learningRate = 0.00005; % Change this, Your learningrate
@@ -57,7 +54,6 @@ title('Training and Test Errors, Single Layer')
 legend('Training Error','Test Error','Min Test Error')
 
 %% Calculate The Confusion Matrix and the Accuracy of the Evaluation Data
-% Note: you have to modify the calcConfusionMatrix() function yourselfs.
 
 [ Y, LSingleLayerTraining ] = runSingleLayer(Xtraining, W);
 [ Y, LSingleLayerTest ] = runSingleLayer(Xtest, W);
@@ -69,7 +65,6 @@ cM = calcConfusionMatrix( LSingleLayerTest, Lt{2})
 acc = calcAccuracy(cM)
 
 %% Plot classifications
-% Note: You do not need to change this code.
 
 if dataSetNr < 4
     plotResultSingleLayer(W,Xtraining,Lt{1},LSingleLayerTraining,Xtest,Lt{2},LSingleLayerTest)

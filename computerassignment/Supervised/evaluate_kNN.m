@@ -27,7 +27,6 @@ selectAtRandom = true; % true = select features at random, false = select the fi
 % XBin1 = Xt{1};
 
 %% Use kNN to classify data
-% Note: you have to modify the kNN() function yourselfs.
 
 % Set the number of neighbors
 k = 3;
@@ -35,7 +34,6 @@ k = 3;
 LkNN = kNN(Xt{2}, k, Xt{1}, Lt{1});
 
 %% Calculate The Confusion Matrix and the Accuracy
-% Note: you have to modify the calcConfusionMatrix() function yourselfs.
 
 % The confucionMatrix
 cM = calcConfusionMatrix( LkNN, Lt{2})
