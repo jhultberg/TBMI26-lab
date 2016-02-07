@@ -37,10 +37,10 @@ for k=1:25
 end
 % Generate Haar feature masks
 %%
-for nbrTrainExamples = 1:50
+for nbrTrainExamples = 1:100
 nbrHaarFeatures = 50;
 haarFeatureMasks = GenerateHaarFeatureMasks(nbrHaarFeatures);
-%nbrTrainExamples = 100;
+%nbrTrainExamples = 50;
 
 % figure(3)
 % colormap gray
@@ -57,7 +57,7 @@ xTrain = ExtractHaarFeatures(trainImages,haarFeatureMasks);
 yTrain = [ones(1,nbrTrainExamples), -ones(1,nbrTrainExamples)];
 
 d = 1/(2*nbrTrainExamples)*ones(1,2*nbrTrainExamples);
-T = 3; % # number of base classifiers
+T = 25; % # number of base classifiers
 ht = [ones(2,T);zeros(size(xTrain,1),T)];
 alpha = zeros(T,1);
 
@@ -103,5 +103,5 @@ end
 %%
 figure(100)
 plot(1:size(correct_classified_percent,2),correct_classified_percent);
-title ('Ratio of correct classified classes with increasing number of samples','FontSize', 14)
-xlabel ('Two times numbers of samples','FontSize',18), ylabel ('Percentage','FontSize' , 18)
+title ('Ratio of correct classified classes with increasing number of examples','FontSize', 14)
+xlabel ('numbers of examples','FontSize',18), ylabel ('Percentage','FontSize' , 18)

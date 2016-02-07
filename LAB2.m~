@@ -37,8 +37,10 @@ for k=1:25
 end
 % Generate Haar feature masks
 %%
-nbrHaarFeatures = 50; % must be over 25 or change k in the next for-loop
+for nbrHaarFeatures = 1:100
+%nbrHaarFeatures = 50;
 haarFeatureMasks = GenerateHaarFeatureMasks(nbrHaarFeatures);
+nbrTrainExamples = 50;
 
 % figure(3)
 % colormap gray
@@ -47,21 +49,15 @@ haarFeatureMasks = GenerateHaarFeatureMasks(nbrHaarFeatures);
 %     axis image,axis off
 % end
 
-
 % Create a training data set with a number of training data examples
 % from each class. Non-faces = class label y=-1, faces = class label y=1
-%%
-for T = 1:50
-    
-nbrTrainExamples = 500;
 
 trainImages = cat(3,faces(:,:,1:nbrTrainExamples),nonfaces(:,:,1:nbrTrainExamples));
 xTrain = ExtractHaarFeatures(trainImages,haarFeatureMasks);
 yTrain = [ones(1,nbrTrainExamples), -ones(1,nbrTrainExamples)];
 
-
 d = 1/(2*nbrTrainExamples)*ones(1,2*nbrTrainExamples);
-%T = 1; % # number of base classifiers
+T = 25; % # number of base classifiers
 ht = [ones(2,T);zeros(size(xTrain,1),T)];
 alpha = zeros(T,1);
 
@@ -96,19 +92,16 @@ for class = 1:T
     % update the weights
     d = d.*exp(-alpha(class)*yTrain.*sign(ht(2,class)*(ht(:,class)'*[ones(1,size(xTrain,2)); zeros(1,size(xTrain,2));xTrain])));
     d = d./sum(d);
-    
 end
-
 testImages = cat(3,faces(:,:,1+nbrTrainExamples:2*nbrTrainExamples),nonfaces(:,:,1+nbrTrainExamples:2*nbrTrainExamples));
 xTest = ExtractHaarFeatures(trainImages,haarFeatureMasks);
 yTest = [ones(1,nbrTrainExamples), -ones(1,nbrTrainExamples)]';
 test = strong_classifier(alpha,ht,xTest);
 
 correct_classified_percent(T) = sum(yTest == test')/(2*nbrTrainExamples)*100;
-
 end
-
+%%
 figure(100)
 plot(1:size(correct_classified_percent,2),correct_classified_percent);
 title ('Ratio of correct classified classes with increasing number of weak classifiers','FontSize', 14)
-xlabel ('Numbers of weak classifiers','FontSize',18), ylabel ('Percentage','FontSize' , 18)
+xlabel ('numbers of weak classifiers','FontSize',18), ylabel ('Percentage','FontSize' , 18)
