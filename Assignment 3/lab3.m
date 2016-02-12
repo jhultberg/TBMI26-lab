@@ -30,5 +30,28 @@ imagesc(corr_matrix); title 'correlation matrix'; axis image; colorbar;
 [eigenvectors, eigenvalues] = eig(Cmatrix);
 
 figure(4);
-% y1 = 
-% plot(eigenvectors(1,:).*countrydata(:,1), eigenvectors(2,:).*countrydata(:,2))
+
+for cou = 1:105
+    hold on
+    
+    if (countryclass(cou) == 0)
+        scatter(eigenvectors(:,1)'*countrydata(:,cou),eigenvectors(:,2)'*countrydata(:,cou),20,'b');
+        
+    elseif (countryclass(cou) == 1)
+        scatter(eigenvectors(:,1)'*countrydata(:,cou),eigenvectors(:,2)'*countrydata(:,cou),20,'m');
+        
+    else
+        scatter(eigenvectors(:,1)'*countrydata(:,cou),eigenvectors(:,2)'*countrydata(:,cou),20,'r');
+    end
+    if cou==41
+        scatter(eigenvectors(:,1)'*countrydata(:,cou),eigenvectors(:,2)'*countrydata(:,cou),20,'c');
+    end
+end
+xlim( [0 1000])
+hold off
+
+
+
+%% FLD
+
+
