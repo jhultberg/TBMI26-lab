@@ -47,10 +47,9 @@ for cou = 1:105
         scatter(eigenvectors(:,1)'*countrydata(:,cou),eigenvectors(:,2)'*countrydata(:,cou),20,'c');
     end
 end
-xlim( [0 1000])
+xlim( [0 1000]); title ('Principal components','FontSize',16);
+
 hold off
-
-
 
 %% FLD
 
