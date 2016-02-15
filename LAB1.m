@@ -1,6 +1,6 @@
 run setupSupervisedLab.m
 
-dataSetNr = 2; % Change this to load new data 
+dataSetNr = 1; % Change this to load new data 
 [X, D, L] = loadDataSet( dataSetNr );
 
 numBins = 2; % Number of Bins you want to devide your data into

@@ -7,7 +7,7 @@
 % 3 = dot cloud 3
 % 4 = OCR data
 
-dataSetNr = 3; % Change this to load new data 
+dataSetNr = 1; % Change this to load new data 
 
 [X, D, L] = loadDataSet( dataSetNr );
 
@@ -31,13 +31,13 @@ Xtraining  = [ones(1,size(Xt{1},2));Xt{1}]; % Remove this line
 Xtest = [];
 Xtest  = [ones(1,size(Xt{2},2));Xt{2}]; % Remove this line
 
-
+Dtraining = Dt{1};
 %% Train your single layer network
 % Note: You nned to modify trainSingleLayer() in order to train the network
 
-numHidden = 50 ; % Change this, Number of hidde neurons 
-numIterations = 14000; % Change this, Numner of iterations (Epochs)
-learningRate = 0.1; % Change this, Your learningrate
+numHidden = 1 ; % Change this, Number of hidde neurons 
+numIterations = 8000; % Change this, Numner of iterations (Epochs)
+learningRate = 0.0001; % Change this, Your learningrate
 classes=length(unique(Lt{1}));
 W0 = 0.01*randn(numHidden+1,size(Xtest,1));% Change this, Initiate your weight matrix W
 V0 = 0.01*randn(classes,numHidden+1); % Change this, Initiate your weight matrix V
@@ -48,10 +48,10 @@ V0 = 0.01*randn(classes,numHidden+1); % Change this, Initiate your weight matrix
 %
 
 
-%% non-generable
- Xtraining = Xtraining(:,1:30:end);
-Dtraining = Dt{1};
-Dtraining = Dtraining(:,1:30:end);
+% %% non-generable
+%  Xtraining = Xtraining(:,1:30:end);
+
+% Dtraining = Dtraining(:,1:30:end);
 %%
 tic
 [W,V, trainingError, testError ] = trainMultiLayer(Xtraining,Dtraining,Xtest,Dt{2}, W0,V0,numIterations, learningRate );
@@ -88,7 +88,7 @@ display(['Accuracy: ' num2str(acc)])
 %% Plot classifications
 % Note: You do not need to change this code.
 Ltraining=Lt{1};
-Ltraining = Ltraining(1:30:end,:);
+% Ltraining = Ltraining(1:30:end,:);
 
 if dataSetNr < 4
     plotResultMultiLayer(W,V,Xtraining,Ltraining,LMultiLayerTraining,Xtest,Lt{2},LMultiLayerTest)

@@ -7,17 +7,17 @@
 % 3 = dot cloud 3
 % 4 = OCR data
 
-dataSetNr = 1; % Change this to load new data 
+dataSetNr = 4; % Change this to load new data 
 
 [X, D, L] = loadDataSet( dataSetNr );
 
 % You can plot and study dataset 1 to 3 by running:
 plotCase(X,D)
-title('Dataset 1','Fontsize',18)
+title('Dataset 3','Fontsize',18)
 
 %% Select a subset of the training features
 
-numBins = 3; % Number of Bins you want to devide your data into
+numBins = 2; % Number of Bins you want to devide your data into
 numSamplesPerLabelPerBin = 100; % Number of samples per label per bin, set to inf for max number (total number is numLabels*numSamplesPerBin)
 selectAtRandom = true; % true = select features at random, false = select the first features
 
