@@ -19,6 +19,9 @@ GWLASTFEED = 0;
 
 GWWORLD = k;
 
+GWROBOT = imread('robot.jpg');
+GWGOAL = imread('goal.jpg');
+
 GWXSIZE = 10;
 GWYSIZE = 15;
 
@@ -100,11 +103,11 @@ end
 
 while 1
   GWPOS = ceil([rand*GWXSIZE,rand*GWYSIZE])';
-  if k == 3 %8 if using all worlds
+  if k == 4 %8 if using all worlds
       GWPOS(1) = 10;
       GWPOS(2) = 14;
   end
-  if k == 4 %7 if using all worlds
+  if k == 3 %7 if using all worlds
       GWPOS(1) = 8;
       GWPOS(2) = 2;
   end
