@@ -8,7 +8,11 @@ map = 2;
 gwinit(map);
 state = gwstate;
 
+<<<<<<< HEAD
 gamma = 0.85;
+=======
+gamma = 0.80;
+>>>>>>> 70d27c9ab10aa64d2e522e8b848e773f1d50da68
 alpha = 0.3;
 epsilon=0.9;
 
@@ -54,6 +58,7 @@ for episodes = 1:numIterations
 end
 
 %% plot decisions
+
 [~,bestdec]=max(Q,[],3);
 gwdraw
 
@@ -71,3 +76,5 @@ colorbar
 figure(6)
 plot(numstate)
 title('Plot for convergation 2')
+
+
