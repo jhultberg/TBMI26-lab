@@ -3,12 +3,12 @@ close all;
 clear all;
 % initialization
 nbrActions = 4;
-map = 1;
+map = 2;
 % gives random start position
 gwinit(map);
 state = gwstate;
 
-gamma = 0.5;
+gamma = 0.85;
 alpha = 0.3;
 epsilon=0.9;
 
@@ -29,12 +29,12 @@ for episodes = 1:numIterations
     % gives random start position
     gwinit(map);
     state = gwstate;
-    epsilon=epsilon-epsilon*episodes/numIterations;
-    
+%     epsilon=epsilon-(epsilon*0.9)*episodes/numIterations;
+    epsilon=0.3+0.6*episodes/numIterations;
     % repeat until goal found
     while (state.isterminal ~=1 )
         % chose an action
-        if(rand(1)<epsilon)
+        if(rand(1)>epsilon)
             action = ceil(rand(1)*4);
             while Q(state.pos(1), state.pos(2), action) == -inf
                 action = ceil(rand(1)*4);
@@ -64,10 +64,10 @@ for x=1:state.xsize
 end
 figure(5)
 imagesc(max(Q,[],3))
-title('max(Q) for map 3')
+title('max(Q) for map 2')
 colorbar
 
 %% plot convergence
 figure(6)
 plot(numstate)
-title('Plot for convergation')
+title('Plot for convergation 2')
