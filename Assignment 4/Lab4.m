@@ -3,12 +3,12 @@ close all;
 clear all;
 % initialization
 nbrActions = 4;
-map = 1;
+map = 2;
 % gives random start position
 gwinit(map);
 state = gwstate;
 
-gamma = 0.5;
+gamma = 0.80;
 alpha = 0.3;
 epsilon=0.9;
 
@@ -54,20 +54,20 @@ for episodes = 1:numIterations
 end
 
 %% plot decisions
-[~,bestdec]=max(Q,[],3);
-gwdraw
-
-for x=1:state.xsize
-    for y=1:state.ysize
-        gwplotarrow([x,y]',bestdec(x,y));
-    end
-end
-figure(5)
-imagesc(max(Q,[],3))
-title('max(Q) for map 3')
-colorbar
+% [~,bestdec]=max(Q,[],3);
+% gwdraw
+% 
+% for x=1:state.xsize
+%     for y=1:state.ysize
+%         gwplotarrow([x,y]',bestdec(x,y));
+%     end
+% end
+% figure(5)
+% imagesc(max(Q,[],3))
+% title('max(Q) for map 4')
+% colorbar
 
 %% plot convergence
-figure(6)
-plot(numstate)
-title('Plot for convergation')
+% figure(6)
+% plot(numstate)
+% title('Plot for convergation, map 4')
