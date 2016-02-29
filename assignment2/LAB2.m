@@ -35,10 +35,10 @@ for k=1:25
 end
 % Generate Haar feature masks
 %%
-for nbrTrainExamples = 1:100
-    nbrHaarFeatures = 50;
+
+    nbrHaarFeatures = 300;
     haarFeatureMasks = GenerateHaarFeatureMasks(nbrHaarFeatures);
-    %nbrTrainExamples = 50;
+    nbrTrainExamples = 1000;
     
     % Create a training data set with a number of training data examples
     % from each class. Non-faces = class label y=-1, faces = class label y=1
@@ -82,17 +82,17 @@ for nbrTrainExamples = 1:100
         % update the weights
         d = d.*exp(-alpha(class)*yTrain.*sign(ht(2,class)*(ht(:,class)'*[ones(1,size(xTrain,2)); zeros(1,size(xTrain,2));xTrain])));
         d = d./sum(d);
-    end
+ 
     testImages = cat(3,faces(:,:,1+nbrTrainExamples:2*nbrTrainExamples),nonfaces(:,:,1+nbrTrainExamples:2*nbrTrainExamples));
     xTest = ExtractHaarFeatures(trainImages,haarFeatureMasks);
     yTest = [ones(1,nbrTrainExamples), -ones(1,nbrTrainExamples)]';
     test = strong_classifier(alpha,ht,xTest);
     
     % making a correct classified vector
-    correct_classified_percent(nbrTrainExamples) = sum(yTest == test')/(2*nbrTrainExamples)*100;
+    correct_classified_percent(class) = sum(yTest == test')/(2*nbrTrainExamples)*100;
 end
 %%
 figure(100)
 plot(1:size(correct_classified_percent,2),correct_classified_percent);
-title ('Ratio of correct classified classes with increasing number of examples','FontSize', 14)
-xlabel ('numbers of examples','FontSize',18), ylabel ('Percentage','FontSize' , 18)
+title ('Ratio of correct classified samples','FontSize', 14)
+xlabel ('Number of weak classifiers','FontSize',16), ylabel ('Percentage','FontSize' , 16)

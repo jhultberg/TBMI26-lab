@@ -4,13 +4,13 @@ clear all;
 tic
 % initialization
 nbrActions = 4;
-map = 4;
+map = 1 ;
 % gives random start position
 gwinit(map);
 state = gwstate;
 
-gamma = 0.99;
-alpha = 0.3;
+gamma = 0.9;
+alpha = 1;
 % epsilon=0.9;
 
 % Look-up table
@@ -66,12 +66,12 @@ for x=1:state.xsize
 end
 figure(5)
 imagesc(max(Q,[],3))
-title('max(Q) for map 4')
+title('max(Q) for map 1')
 colorbar
 
 %% plot convergence
 figure(6)
 plot(numstate)
-title('Plot for convergation 4')
+title('Plot for convergation, map 1')
 
 toc
